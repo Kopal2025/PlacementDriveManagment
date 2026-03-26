@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Students - PDMS</title>
+    <link rel="stylesheet" href="css/students.css">
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+    <h2 class="logo-text">PDMS</h2>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="students.html" class="active">Students</a>
+    <a href="#">Companies</a>
+    <a href="#">Placement Drives</a>
+    <a href="#">Applications</a>
+    <a href="#">Results</a>
+</div>
+
+<!-- MAIN -->
+<div class="main" id="main">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+        <div class="left">
+            <span class="menu-btn" onclick="toggleSidebar()">☰</span>
+            <span class="title">PDMS</span>
+        </div>
+        <a href="index.html" class="home-btn">← Home</a>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+        <h1>Students</h1>
+        <p class="subtitle">Manage student records and placement eligibility</p>
+
+        <!-- ✅ STATS (FIXED IDS + REMOVED SHOWN) -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="icon-box">👥</div>
+                <div>
+                    <h3>Total Students</h3>
+                    <p id="totalStudents">0</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon-box icon-green">✔</div>
+                <div>
+                    <h3>Eligible Students</h3>
+                    <p id="eligibleStudents">-</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FILTERS -->
+        <div class="filters">
+            <input type="text" id="search" class="search-box"
+                placeholder="Search by name or registration number">
+
+            <select id="cgpaFilter" class="search-box">
+                <option value="0">All Students</option>
+                <option value="6">CGPA 6+</option>
+                <option value="7">CGPA 7+</option>
+                <option value="8">CGPA 8+</option>
+                <option value="9">CGPA 9+</option>
+            </select>
+        </div>
+
+        <!-- ADD STUDENT FORM -->
+        <div class="add-student-box">
+            <h2>Add Student</h2>
+
+            <div class="form-grid">
+                <input type="text" id="name" placeholder="Name">
+                <input type="text" id="reg" placeholder="Registration No">
+                <input type="email" id="email" placeholder="Email">
+                <input type="text" id="branch" placeholder="Branch">
+                <input type="number" id="cgpa" placeholder="CGPA" step="0.1">
+                <input type="number" id="year" placeholder="Graduation Year">
+                <input type="text" id="skillsInput" placeholder="Skills (comma separated)">
+            </div>
+
+            <button onclick="addStudent()" class="add-btn">+ Add Student</button>
+        </div>
+
+        <!-- TABLE -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Registration No</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Branch</th>
+                        <th>CGPA</th>
+                        <th>Grad Year</th>
+                        <th>Skills</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        Placement Drive Management System — DBS Project
+    </footer>
+
+</div>
+
+<script src="js/students.js"></script>
+</body>
+</html>
