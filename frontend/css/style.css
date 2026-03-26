@@ -7,28 +7,21 @@
 }
 
 /* Body */
+html, body {
+    height: 100%;
+}
+
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
 
-    /* Full height fix */
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    /* REMOVE center (was breaking layout) */
+    text-align: left;
 
-    /* Gradient Background */
     background: linear-gradient(135deg, #eef2ff, #f8fafc);
-
-    /* Smooth Page Load */
     animation: fadeIn 0.8s ease-in;
 }
 
-/* Main should take remaining space */
-main {
-    flex: 1;
-}
-
-/* Fade-in Animation */
+/* Fade-in */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -40,94 +33,253 @@ main {
     }
 }
 
-/* Header */
-.header {
+/* ================= LAYOUT ================= */
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar {
+    width: 240px;
+    background: #111827;
+    color: #d1d5db;
+    padding: 20px 15px;
+
+    position: fixed;
+    top: 0;
+    left: -240px;
+    height: 100%;
+
+    transition: 0.3s ease;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+/* Sidebar top */
+.sidebar-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+/* Logo */
+.logo-circle {
+    background: #2563eb;
+    color: white;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* PDMS text */
+.logo-text {
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+/* Nav title */
+.nav-title {
+    font-size: 12px;
+    color: #9ca3af;
+    margin: 15px 10px;
+}
+
+/* Sidebar list */
+.sidebar ul {
+    list-style: none;
+}
+
+/* Sidebar items */
+.sidebar li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* Hover + Active */
+.sidebar li:hover {
+    background: #1f2937;
+    color: white;
+}
+
+.sidebar li.active {
+    background: #2563eb;
+    color: white;
+}
+
+/* ================= MAIN ================= */
+
+.main {
+    flex: 1;
+    margin-left: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: #f3f4f6;
+
+    transition: 0.3s ease;
+}
+
+/* SHIFT when sidebar opens */
+.main.shift {
+    margin-left: 240px;
+}
+
+/* ================= TOPBAR ================= */
+
+.topbar {
+    height: 60px;
     background: white;
-    padding: 15px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 25px;
     border-bottom: 1px solid #ddd;
 }
 
-.header h2 {
+.topbar .left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Menu button */
+.menu-btn {
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/* PDMS title */
+.title {
+    font-weight: bold;
     color: #2563eb;
-    letter-spacing: 1px;
+    font-size: 16px;
 }
 
-/* Hero Section */
-.hero {
-    padding: 90px 20px 70px;
-}
-
-.hero h1 {
-    font-size: 48px;   /* BIGGER TITLE */
-    margin-bottom: 15px;
-}
-
-.hero p {
-    color: #6b7280;
-    max-width: 650px;
-    margin: auto;
-    font-size: 18px;
-}
-
-/* Button */
-.btn {
-    margin-top: 30px;
-    padding: 14px 32px;
+/* Home Button */
+.home-btn {
     background: linear-gradient(135deg, #2563eb, #3b82f6);
     color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 17px;
-    border-radius: 30px;
-
-    transition: all 0.3s ease;
+    padding: 8px 18px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 14px;
 }
 
-/* Button Hover */
-.btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+.home-btn:hover {
+    background: #1e40af;
+    transform: scale(1.05);
 }
 
-/* Features Section */
-.features {
+/* ================= CONTENT ================= */
+
+.content {
+    flex: 1;
+    padding: 40px 50px;
+}
+
+/* Headings */
+.content h1 {
+    margin-bottom: 10px;
+    font-size: 28px;
+}
+
+.subtitle {
+    margin-bottom: 40px;
+    color: #6b7280;
+}
+
+/* ================= CARDS ================= */
+
+.cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* BIGGER CARDS */
-    padding: 70px 50px;
-    gap: 25px;
+    grid-template-columns: repeat(3, minmax(280px, 350px));
+    justify-content: center;
+    gap: 30px;
 }
 
-/* Cards */
+/* Responsive */
+@media (max-width: 900px) {
+    .cards {
+        grid-template-columns: repeat(2, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 500px) {
+    .cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Card */
 .card {
     background: white;
-    padding: 30px; /* BIGGER CARD SIZE */
-    border-radius: 14px;
-    border: 1px solid #ddd;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
 
+    cursor: pointer;
     transition: all 0.3s ease;
 }
 
-/* Card Hover Effect */
+/* Hover */
 .card:hover {
-    transform: translateY(-12px) scale(1.05);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-/* Card Headings (BIGGER) */
-.card h3 {
-    font-size: 20px;
+/* Card top */
+.card-top {
+    display: flex;
+    align-items: center;
+    gap: 15px;
     margin-bottom: 10px;
 }
 
-/* Card Hover Text Effect */
-.card:hover h3 {
-    color: #2563eb;
+/* Icon */
+.icon {
+    font-size: 22px;
+    background: #e0e7ff;
+
+    width: 45px;
+    height: 45px;
+
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Footer FIXED */
-footer {
-    margin-top: auto;   /* pushes footer to bottom */
-    padding: 20px;
+/* Text */
+.card p {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+/* ================= FOOTER ================= */
+
+.footer {
+    text-align: center;
+    padding: 15px;
     background: white;
     border-top: 1px solid #ddd;
     color: #6b7280;

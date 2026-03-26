@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-top">
+            <div class="logo-circle">P</div>
+            <h2 class="logo-text">PDMS</h2>
+        </div>
+
+        <p class="nav-title">Navigation</p>
+
+        <ul>
+            <li class="active">🏠 Dashboard</li>
+            <li onclick="navigate('students')">🎓 Students</li>
+            <li onclick="navigate('companies')">🏢 Companies</li>
+            <li onclick="navigate('drives')">📅 Drives</li>
+            <li onclick="navigate('applications')">📄 Applications</li>
+            <li onclick="navigate('results')">🏆 Results</li>
+        </ul>
+    </aside>
+
+    <!-- Main -->
+    <main class="main" id="main">
+
+        <!-- Topbar -->
+        <div class="topbar">
+            <div class="left">
+                <span class="menu-btn" onclick="toggleSidebar()">☰</span>
+                <span class="title">PDMS</span>
+            </div>
+
+            <a href="index.html" class="home-btn">← Back to Home</a>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <h1>Dashboard</h1>
+            <p class="subtitle">Welcome to the Placement Drive Management System</p>
+
+            <div class="cards">
+                <!-- Cards same as before -->
+                <div class="card" onclick="navigate('students')">
+                    <div class="card-top">
+                        <div class="icon">🎓</div>
+                        <h3>Students</h3>
+                    </div>
+                    <p>Manage student profiles and records</p>
+                </div>
+
+                <div class="card" onclick="navigate('companies')">
+                    <div class="card-top">
+                        <div class="icon">🏢</div>
+                        <h3>Companies</h3>
+                    </div>
+                    <p>View recruiting companies</p>
+                </div>
+
+                <div class="card" onclick="navigate('drives')">
+                    <div class="card-top">
+                        <div class="icon">📅</div>
+                        <h3>Placement Drives</h3>
+                    </div>
+                    <p>Schedule and track drives</p>
+                </div>
+
+                <div class="card" onclick="navigate('applications')">
+                    <div class="card-top">
+                        <div class="icon">📄</div>
+                        <h3>Applications</h3>
+                    </div>
+                    <p>Track applications</p>
+                </div>
+
+                <div class="card" onclick="navigate('results')">
+                    <div class="card-top">
+                        <div class="icon">🏆</div>
+                        <h3>Results</h3>
+                    </div>
+                    <p>View placement results</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            Placement Drive Management System — DBMS Mini Project
+        </footer>
+
+    </main>
+
+</div>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>
