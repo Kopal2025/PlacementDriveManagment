@@ -1,0 +1,135 @@
+/* Reset + Smooth Transitions */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Body */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+
+    /* Full height fix */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    /* Gradient Background */
+    background: linear-gradient(135deg, #eef2ff, #f8fafc);
+
+    /* Smooth Page Load */
+    animation: fadeIn 0.8s ease-in;
+}
+
+/* Main should take remaining space */
+main {
+    flex: 1;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Header */
+.header {
+    background: white;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.header h2 {
+    color: #2563eb;
+    letter-spacing: 1px;
+}
+
+/* Hero Section */
+.hero {
+    padding: 90px 20px 70px;
+}
+
+.hero h1 {
+    font-size: 48px;   /* BIGGER TITLE */
+    margin-bottom: 15px;
+}
+
+.hero p {
+    color: #6b7280;
+    max-width: 650px;
+    margin: auto;
+    font-size: 18px;
+}
+
+/* Button */
+.btn {
+    margin-top: 30px;
+    padding: 14px 32px;
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 17px;
+    border-radius: 30px;
+
+    transition: all 0.3s ease;
+}
+
+/* Button Hover */
+.btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+}
+
+/* Features Section */
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* BIGGER CARDS */
+    padding: 70px 50px;
+    gap: 25px;
+}
+
+/* Cards */
+.card {
+    background: white;
+    padding: 30px; /* BIGGER CARD SIZE */
+    border-radius: 14px;
+    border: 1px solid #ddd;
+
+    transition: all 0.3s ease;
+}
+
+/* Card Hover Effect */
+.card:hover {
+    transform: translateY(-12px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+/* Card Headings (BIGGER) */
+.card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+/* Card Hover Text Effect */
+.card:hover h3 {
+    color: #2563eb;
+}
+
+/* Footer FIXED */
+footer {
+    margin-top: auto;   /* pushes footer to bottom */
+    padding: 20px;
+    background: white;
+    border-top: 1px solid #ddd;
+    color: #6b7280;
+    font-size: 14px;
+}
