@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Results - PDMS</title>
+    <link rel="stylesheet" href="css/autocomplete.css">
+    <link rel="stylesheet" href="css/results.css">
+</head>
+
+<body>
+
+<div class="layout">
+
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+        <div class="logo-circle">P</div>
+        <h2 class="logo-text">PDMS</h2>
+    </div>
+
+    <p class="nav-title">Navigation</p>
+
+    <ul>
+        <li onclick="navigate('dashboard')">🏠 Dashboard</li>
+        <li onclick="navigate('students')">🎓 Students</li>
+        <li onclick="navigate('companies')">🏢 Companies</li>
+        <li onclick="navigate('drives')">📅 Drives</li>
+        <li onclick="navigate('applications')">📄 Applications</li>
+        <li class="active">🎯 Results</li>
+    </ul>
+</aside>
+
+<main class="main" id="main">
+
+    <div class="topbar">
+        <div class="left">
+            <span class="menu-btn" onclick="toggleSidebar()">☰</span>
+            <span class="title">PDMS</span>
+        </div>
+        <a href="index.html" class="home-btn">← Home</a>
+    </div>
+
+    <div class="content">
+        <h1>Results</h1>
+        <p class="subtitle">Placement outcomes — color-coded rows; ⭐ marks students with more than one offer in the list below</p>
+
+        <div class="add-box">
+            <h2>Add result</h2>
+
+            <div class="form-row results-form-row">
+                <div class="combo-field">
+                    <label class="combo-label" for="resultStudentInput">Student</label>
+                    <div class="combo combo-block" id="resultStudentCombo">
+                        <input type="text" class="combo-input" id="resultStudentInput" autocomplete="off" placeholder="Search student…" />
+                        <input type="hidden" class="combo-value" value="" />
+                        <ul class="combo-list hidden" role="listbox"></ul>
+                    </div>
+                </div>
+                <div class="combo-field">
+                    <label class="combo-label" for="resultCompanyInput">Company</label>
+                    <div class="combo combo-block" id="resultCompanyCombo">
+                        <input type="text" class="combo-input" id="resultCompanyInput" autocomplete="off" placeholder="Search company…" />
+                        <input type="hidden" class="combo-value" value="" />
+                        <ul class="combo-list hidden" role="listbox"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row results-form-row-2">
+                <input type="number" id="package" placeholder="Package offered (LPA, &gt; 0)" min="0.01" step="0.01">
+
+                <div class="combo-field combo-field-grow">
+                    <label class="combo-label" for="resultStatusInput">Offer status</label>
+                    <div class="combo combo-block" id="resultStatusCombo">
+                        <input type="text" class="combo-input" id="resultStatusInput" autocomplete="off" placeholder="Search status…" />
+                        <input type="hidden" class="combo-value" value="" />
+                        <ul class="combo-list hidden" role="listbox"></ul>
+                    </div>
+                </div>
+
+                <button type="button" onclick="addResult()" class="add-btn">Add</button>
+            </div>
+
+            <p id="message"></p>
+        </div>
+
+        <div class="results-table-section">
+            <div class="results-toolbar">
+                <label class="sr-only" for="resultsSearch">Search results</label>
+                <input type="text" id="resultsSearch" class="results-search-input" placeholder="Search by student name or registration number…" autocomplete="off">
+                <p id="resultsSummary" class="results-summary" aria-live="polite"></p>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Company</th>
+                            <th>Package</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        Placement Drive Management System — DBMS Project
+    </footer>
+
+</main>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/script.js"></script>
+<script src="js/autocomplete.js"></script>
+<script src="js/results.js"></script>
+
+</body>
+</html>

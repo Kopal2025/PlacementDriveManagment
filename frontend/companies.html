@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Companies - PDMS</title>
+    <link rel="stylesheet" href="css/companies.css">
+</head>
+
+<body>
+
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+        <div class="logo-circle">P</div>
+        <h2 class="logo-text">PDMS</h2>
+    </div>
+
+    <p class="nav-title">Navigation</p>
+
+    <ul>
+        <li onclick="navigate('dashboard')">🏠 Dashboard</li>
+        <li onclick="navigate('students')">🎓 Students</li>
+        <li class="active">🏢 Companies</li>
+        <li onclick="navigate('drives')">📅 Drives</li>
+        <li onclick="navigate('applications')">📄 Applications</li>
+        <li onclick="navigate('results')">🎯 Results</li>
+    </ul>
+</aside>
+
+<div class="main" id="main">
+
+    <div class="topbar">
+        <div class="left">
+            <span class="menu-btn" onclick="toggleSidebar()">☰</span>
+            <span class="title">PDMS</span>
+        </div>
+        <a href="index.html" class="home-btn">← Home</a>
+    </div>
+
+    <div class="content">
+        <h1>Companies</h1>
+        <p class="subtitle">Add companies and maintain HR contact details</p>
+
+        <div class="stats stats-wide">
+            <div class="stat-card stat-card-wide">
+                <div class="icon-box">🏢</div>
+                <div>
+                    <h3>Total Companies</h3>
+                    <p id="totalCompanies">0</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="filters">
+            <input type="text" id="search" placeholder="Search by company name" class="search-box">
+        </div>
+
+        <div class="add-box">
+            <h2>Add Company</h2>
+
+            <div class="form-grid">
+                <input type="text" id="name" placeholder="Company Name">
+                <input type="text" id="industry" placeholder="Industry">
+                <input type="text" id="hr" placeholder="HR Name">
+                <input type="email" id="email" placeholder="HR Email">
+                <input type="text" id="contact" placeholder="Contact Number">
+            </div>
+
+            <button type="button" onclick="addCompany()" class="add-btn">+ Add Company</button>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Industry</th>
+                        <th>HR</th>
+                        <th>Email</th>
+                        <th>Contact</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer class="footer">
+        Placement Drive Management System — DBMS Project
+    </footer>
+
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/script.js"></script>
+<script src="js/companies.js"></script>
+</body>
+</html>

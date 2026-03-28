@@ -21,6 +21,9 @@ body {
     animation: fadeIn 0.8s ease-in;
 }
 
+body {
+    animation: fadeIn 0.5s ease;
+}
 /* Fade-in */
 @keyframes fadeIn {
     from {

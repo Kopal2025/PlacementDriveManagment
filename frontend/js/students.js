@@ -1,129 +1,257 @@
-const students = [
-    { reg: "240911182", name: "Ankila Bajaj", email: "ankila@gmail.com", branch: "CSE", cgpa: 8.5, year: 2026, skills: "Java, SQL" },
-    { reg: "240911224", name: "Kopal Gupta", email: "kopal@gmail.com", branch: "IT", cgpa: 7.2, year: 2026, skills: "Python, ML" },
-    { reg: "240911692", name: "Bhavya Bhatia", email: "bhavya@gmail.com", branch: "ECE", cgpa: 9.1, year: 2026, skills: "C++, VLSI" },
-
-    { reg: "240911101", name: "Rahul Sharma", email: "rahul@gmail.com", branch: "CSE", cgpa: 6.8, year: 2025, skills: "Java, DSA" },
-    { reg: "240911102", name: "Priya Verma", email: "priya@gmail.com", branch: "IT", cgpa: 8.9, year: 2025, skills: "Python, AI" },
-    { reg: "240911103", name: "Aman Singh", email: "aman@gmail.com", branch: "ECE", cgpa: 7.5, year: 2025, skills: "Embedded, C" },
-
-    { reg: "240911104", name: "Sneha Kapoor", email: "sneha@gmail.com", branch: "CSE", cgpa: 9.3, year: 2026, skills: "React, Node" },
-    { reg: "240911105", name: "Vikas Yadav", email: "vikas@gmail.com", branch: "ME", cgpa: 6.2, year: 2024, skills: "AutoCAD" },
-    { reg: "240911106", name: "Neha Jain", email: "neha@gmail.com", branch: "IT", cgpa: 8.1, year: 2026, skills: "SQL, Power BI" },
-
-    { reg: "240911107", name: "Arjun Mehta", email: "arjun@gmail.com", branch: "CSE", cgpa: 7.8, year: 2025, skills: "C++, DSA" },
-    { reg: "240911108", name: "Pooja Nair", email: "pooja@gmail.com", branch: "ECE", cgpa: 9.0, year: 2026, skills: "VLSI, MATLAB" },
-    { reg: "240911109", name: "Rohit Kumar", email: "rohit@gmail.com", branch: "CSE", cgpa: 6.5, year: 2024, skills: "Java, Spring" },
-
-    { reg: "240911110", name: "Anjali Desai", email: "anjali@gmail.com", branch: "IT", cgpa: 8.7, year: 2025, skills: "Python, Data Science" },
-    { reg: "240911111", name: "Karan Malhotra", email: "karan@gmail.com", branch: "ECE", cgpa: 7.1, year: 2026, skills: "Electronics, C" },
-    { reg: "240911112", name: "Meera Iyer", email: "meera@gmail.com", branch: "CSE", cgpa: 9.5, year: 2026, skills: "Full Stack, React" },
-
-    { reg: "240911113", name: "Siddharth Roy", email: "sid@gmail.com", branch: "IT", cgpa: 8.3, year: 2025, skills: "Cloud, AWS" },
-    { reg: "240911114", name: "Tanya Gupta", email: "tanya@gmail.com", branch: "CSE", cgpa: 7.9, year: 2024, skills: "DSA, Java" },
-    { reg: "240911115", name: "Harsh Patel", email: "harsh@gmail.com", branch: "ME", cgpa: 6.9, year: 2025, skills: "Mechanical Design" },
-
-    { reg: "240911116", name: "Divya Reddy", email: "divya@gmail.com", branch: "ECE", cgpa: 8.6, year: 2026, skills: "Signal Processing" },
-    { reg: "240911117", name: "Yash Agarwal", email: "yash@gmail.com", branch: "CSE", cgpa: 9.2, year: 2026, skills: "AI, ML" },
-    { reg: "240911118", name: "Simran Kaur", email: "simran@gmail.com", branch: "IT", cgpa: 7.4, year: 2025, skills: "Networking" }
-];
-
 const table = document.getElementById("tableBody");
 const search = document.getElementById("search");
-const filter = document.getElementById("cgpaFilter");
+const cgpaMinInput = document.getElementById("cgpaMin");
 
-// 🎯 Render Function
+let skillStudentCombo;
+
+function getMinCgpaFilter() {
+    const v = cgpaMinInput.value.trim();
+    if (v === "") return null;
+    const n = parseFloat(v);
+    if (Number.isNaN(n)) return null;
+    return n;
+}
+
+function getFilteredStudents() {
+    let list = PDMS.getStudents();
+    const q = search.value.trim().toLowerCase();
+    const minCgpa = getMinCgpaFilter();
+
+    if (q) {
+        list = list.filter(
+            (s) =>
+                s.name.toLowerCase().includes(q) ||
+                String(s.reg).toLowerCase().includes(q)
+        );
+    }
+    if (minCgpa !== null) {
+        list = list.filter((s) => Number(s.cgpa) >= minCgpa);
+    }
+    return list;
+}
+
+function skillsByReg(reg) {
+    return PDMS.getSkills().filter((x) => x.reg === reg);
+}
+
+function capitalizeSkill(s) {
+    const t = s.trim();
+    if (!t) return "";
+    return t.charAt(0).toUpperCase() + t.slice(1);
+}
+
+function escapeHtml(str) {
+    const d = document.createElement("div");
+    d.textContent = str;
+    return d.innerHTML;
+}
+
+function initSkillStudentCombo() {
+    const root = document.getElementById("skillStudentCombo");
+    skillStudentCombo = Combo.init(root, {
+        getItems: () => getFilteredStudents(),
+        getValue: (s) => s.reg,
+        getLabel: (s) => `${s.name} (${s.reg})`,
+        filter: (q, s) => {
+            const qq = q.trim().toLowerCase();
+            if (!qq) return true;
+            return (
+                s.name.toLowerCase().includes(qq) ||
+                String(s.reg).toLowerCase().includes(qq)
+            );
+        },
+        maxSuggestions: 50,
+    });
+}
+
+function syncSkillComboAfterRender() {
+    if (!skillStudentCombo) return;
+    const v = skillStudentCombo.getValue();
+    skillStudentCombo.refresh();
+    if (v) {
+        const list = getFilteredStudents();
+        if (!list.some((s) => s.reg === v)) {
+            skillStudentCombo.clear();
+        } else {
+            skillStudentCombo.setValue(v);
+        }
+    }
+}
+
 function render(data) {
     table.innerHTML = "";
-    const cgpa = parseFloat(filter.value);
 
-    data.forEach(s => {
+    data.forEach((s) => {
         const row = document.createElement("tr");
-
-        const isEligible = cgpa === 0 || s.cgpa >= cgpa;
-
-        if (cgpa !== 0 && isEligible) {
-            row.classList.add("eligible");
-        }
+        const skills = skillsByReg(s.reg);
+        const tags =
+            skills.length === 0
+                ? '<span class="muted">—</span>'
+                : skills
+                      .map((x) => `<span class="skill-tag">${escapeHtml(x.skill)}</span>`)
+                      .join(" ");
 
         row.innerHTML = `
-            <td>${s.reg}</td>
-            <td><strong>${s.name}</strong></td>
-            <td>${s.email}</td>
-            <td>${s.branch}</td>
-            <td><strong>${s.cgpa}</strong></td>
-            <td>${s.year}</td>
-            <td>
-                ${s.skills.split(",").map(skill => 
-                    `<span class="skill-tag">${skill.trim()}</span>`
-                ).join("")}
-            </td>
-            <td>
-                ${cgpa !== 0 && isEligible ? '<span class="badge">Eligible</span>' : ''}
-            </td>
+            <td>${escapeHtml(s.reg)}</td>
+            <td><strong>${escapeHtml(s.name)}</strong></td>
+            <td>${escapeHtml(s.branch)}</td>
+            <td><strong>${Number(s.cgpa).toFixed(2)}</strong></td>
+            <td>${escapeHtml(s.email)}</td>
+            <td class="skills-cell-wrap">${tags}</td>
+            <td class="actions-cell"></td>
         `;
+
+        const skillsCell = row.querySelector(".skills-cell-wrap");
+        if (skills.length > 0) {
+            skills.forEach((entry) => {
+                const b = document.createElement("button");
+                b.type = "button";
+                b.className = "link-btn skill-remove-btn";
+                b.textContent = "× " + entry.skill;
+                b.title = "Remove " + entry.skill;
+                b.addEventListener("click", () => removeSkill(entry.reg, entry.skill));
+                skillsCell.appendChild(b);
+            });
+        }
+
+        const actionsCell = row.querySelector(".actions-cell");
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "danger-btn";
+        btn.textContent = "Remove student";
+        btn.addEventListener("click", () => window.deleteStudent(s.reg));
+        actionsCell.appendChild(btn);
 
         table.appendChild(row);
     });
 
-    // ✅ Total always fixed
-    document.getElementById("totalStudents").innerText = students.length;
+    const all = PDMS.getStudents();
+    document.getElementById("totalStudents").innerText = all.length;
+    document.getElementById("eligibleStudents").innerText = data.length;
 
-    // ✅ Eligible FIXED (your requirement)
-    let eligibleCount;
-    if (cgpa === 0) {
-        eligibleCount = students.length;   // 👈 IMPORTANT FIX
-    } else {
-        eligibleCount = students.filter(s => s.cgpa >= cgpa).length;
-    }
-
-    document.getElementById("eligibleStudents").innerText = eligibleCount;
+    syncSkillComboAfterRender();
 }
 
-// ➕ Add Student
-function addStudent() {
-    const name = document.getElementById("name").value;
-    const reg = document.getElementById("reg").value;
-    const email = document.getElementById("email").value;
-    const branch = document.getElementById("branch").value;
-    const cgpa = parseFloat(document.getElementById("cgpa").value);
-    const year = document.getElementById("year").value;
-    const skills = document.getElementById("skillsInput").value;
+window.deleteStudent = function (reg) {
+    if (!confirm("Remove this student? Related skills and applications should be cleaned in a full backend; here we remove the student and their skills.")) {
+        return;
+    }
+    const students = PDMS.getStudents().filter((s) => s.reg !== reg);
+    PDMS.saveStudents(students);
 
-    if (!name || !reg || !email || !branch || !cgpa || !year || !skills) {
-        alert("Please fill all fields");
+    const skills = PDMS.getSkills().filter((x) => x.reg !== reg);
+    PDMS.saveSkills(skills);
+
+    const apps = PDMS.getApplications().filter((a) => a.studentReg !== reg);
+    PDMS.saveApplications(apps);
+
+    const results = PDMS.getResults().filter((r) => r.studentReg !== reg);
+    PDMS.saveResults(results);
+
+    filterData();
+};
+
+function removeSkill(reg, skill) {
+    const skills = PDMS.getSkills().filter((x) => !(x.reg === reg && x.skill === skill));
+    PDMS.saveSkills(skills);
+    filterData();
+}
+
+function addSkill() {
+    const reg = skillStudentCombo ? skillStudentCombo.getValue() : "";
+    let skill = document.getElementById("skillName").value.trim();
+    if (!reg || !skill) {
+        alert("Select a student and enter a skill name.");
+        return;
+    }
+    skill = capitalizeSkill(skill);
+    const exists = PDMS.getSkills().some((x) => x.reg === reg && x.skill.toLowerCase() === skill.toLowerCase());
+    if (exists) {
+        alert("This skill is already listed for the student.");
+        return;
+    }
+    const skills = PDMS.getSkills();
+    skills.push({ reg, skill });
+    PDMS.saveSkills(skills);
+    document.getElementById("skillName").value = "";
+    filterData();
+}
+
+function addStudent() {
+    const name = document.getElementById("name").value.trim();
+    const reg = document.getElementById("reg").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const branch = document.getElementById("branch").value.trim();
+    const cgpa = parseFloat(document.getElementById("cgpa").value);
+    const year = parseInt(document.getElementById("year").value, 10);
+    const phone = document.getElementById("phone").value.trim();
+    const backlogEl = document.getElementById("backlog");
+    const backlog = backlogEl ? backlogEl.value : "No";
+
+    if (!name || !reg || !email || !branch || !phone || !document.getElementById("cgpa").value || !document.getElementById("year").value) {
+        alert("Please fill all fields.");
         return;
     }
 
-    students.push({ reg, name, email, branch, cgpa, year, skills });
+    if (Number.isNaN(cgpa) || cgpa < 0 || cgpa > 10) {
+        alert("CGPA must be between 0 and 10.");
+        return;
+    }
 
-    document.querySelectorAll(".form-grid input").forEach(i => i.value = "");
+    if (year < 2020 || year > 2099) {
+        alert("Graduation year must be at least 2020.");
+        return;
+    }
 
-    render(students);
+    if (backlog !== "Yes" && backlog !== "No") {
+        alert("Invalid backlog status.");
+        return;
+    }
+
+    const students = PDMS.getStudents();
+    if (students.some((s) => s.reg === reg)) {
+        alert("Registration number already exists.");
+        return;
+    }
+    if (students.some((s) => s.email.toLowerCase() === email.toLowerCase())) {
+        alert("Email must be unique.");
+        return;
+    }
+    if (students.some((s) => s.phone === phone)) {
+        alert("Phone number must be unique.");
+        return;
+    }
+
+    students.push({
+        reg,
+        name,
+        email,
+        branch,
+        cgpa,
+        year,
+        phone,
+        backlog,
+    });
+    PDMS.saveStudents(students);
+
+    document.querySelectorAll(".add-student-form input").forEach((i) => (i.value = ""));
+    const bl = document.getElementById("backlog");
+    if (bl) bl.value = "No";
+
+    filterData();
 }
 
-// 🔍 Filter
 function filterData() {
-    const q = search.value.toLowerCase();
-    const cgpa = parseFloat(filter.value);
-
-    const filtered = students.filter(s =>
-        (s.name.toLowerCase().includes(q) || s.reg.includes(q)) &&
-        (cgpa === 0 || s.cgpa >= cgpa)
-    );
-
-    render(filtered);
+    render(getFilteredStudents());
 }
 
-// Events
 search.addEventListener("input", filterData);
-filter.addEventListener("change", filterData);
+cgpaMinInput.addEventListener("input", filterData);
 
-// Sidebar
 function toggleSidebar() {
     document.getElementById("sidebar").classList.toggle("active");
     document.getElementById("main").classList.toggle("shift");
 }
 
-// Load
-render(students);
+initSkillStudentCombo();
+filterData();
