@@ -1,0 +1,113 @@
+<a href="/dashboard" style="display: inline-block; margin: 20px; padding: 10px 20px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;">📊 View Dashboard</a>
+
+<a href="/view_all_skills" style="display: inline-block; margin: 20px; padding: 10px 20px; background-color: #17a2b8; color: white; text-decoration: none; border-radius: 5px;">📚 View All Skills</a>
+
+<hr>
+
+<form action="/add_student" method="POST">
+    <input type="text" name="reg_no" placeholder="Reg No"><br>
+    <input type="text" name="name" placeholder="Name"><br>
+    <input type="text" name="branch" placeholder="Branch"><br>
+    <input type="text" name="cgpa" placeholder="CGPA"><br>
+    <input type="email" name="email" placeholder="Email"><br>
+    <input type="text" name="phone" placeholder="Phone"><br>
+    <input type="text" name="backlog" placeholder="Yes/No"><br>
+    <input type="text" name="resume" placeholder="Resume Link"><br>
+    <input type="text" name="year" placeholder="Graduation Year"><br>
+
+    <button type="submit">Add Student</button>
+</form>
+
+<hr>
+<h2>Add Company</h2>
+
+<form action="/add_company" method="POST">
+    <input type="text" name="company_id" placeholder="Company ID"><br>
+    <input type="text" name="company_name" placeholder="Company Name"><br>
+    <input type="text" name="industry" placeholder="Industry Type"><br>
+    <input type="text" name="hr_name" placeholder="HR Name"><br>
+    <input type="email" name="hr_email" placeholder="HR Email"><br>
+    <input type="text" name="contact" placeholder="Contact Number"><br>
+
+    <button type="submit">Add Company</button>
+</form>
+
+<hr>
+<h2>Create Placement Drive</h2>
+
+<form action="/create_drive" method="POST">
+    <input type="text" name="drive_id" placeholder="Drive ID"><br>
+    <input type="text" name="company_id" placeholder="Company ID"><br>
+    <input type="text" name="job_role" placeholder="Job Role"><br>
+    <input type="text" name="package" placeholder="Package"><br>
+    <input type="date" name="date"><br>
+    <input type="text" name="venue" placeholder="Venue"><br>
+    <input type="text" name="cgpa" placeholder="Min CGPA"><br>
+    <input type="text" name="branch" placeholder="Eligible Branch"><br>
+    <input type="text" name="status" placeholder="Open/Closed"><br>
+
+    <button type="submit">Create Drive</button>
+</form>
+
+<hr>
+<h2>Apply for Drive</h2>
+
+<form action="/apply" method="POST">
+    <input type="text" name="app_id" placeholder="Application ID"><br>
+    <input type="text" name="reg_no" placeholder="Registration No"><br>
+    <input type="text" name="drive_id" placeholder="Drive ID"><br>
+
+    <button type="submit">Apply</button>
+</form>
+
+<hr>
+<h2>Update Application Status</h2>
+
+<form action="/update_status" method="POST">
+    <input type="text" name="app_id" placeholder="Application ID"><br>
+    <input type="text" name="status" placeholder="Shortlisted / Selected / Rejected"><br>
+
+    <input type="text" name="result_id" placeholder="Result ID (if selected)"><br>
+    <input type="text" name="package" placeholder="Package Offered"><br>
+
+    <button type="submit">Update Status</button>
+</form>
+
+<hr>
+<h2>Add Student Skill</h2>
+
+<form action="/add_skill" method="POST">
+    <input type="text" name="reg_no" placeholder="Registration No"><br>
+    <input type="text" name="skill_name" placeholder="Skill Name (e.g., Python)"><br>
+
+    <button type="submit">Add Skill</button>
+</form>
+
+<hr>
+<h2>Add Multiple Skills</h2>
+
+<form action="/add_multiple_skills" method="POST">
+    <input type="text" name="reg_no" placeholder="Registration No"><br>
+    <input type="text" name="skills" placeholder="Skills (comma separated, e.g., Python, Java, SQL)"><br>
+
+    <button type="submit">Add Multiple Skills</button>
+</form>
+
+<hr>
+<h2>View Student Skills</h2>
+
+<form action="/view_skills" method="GET">
+    <input type="text" name="reg_no" placeholder="Registration No"><br>
+
+    <button type="submit">View Skills</button>
+</form>
+
+<hr>
+<h2>Delete Student Skill</h2>
+
+<form action="/delete_skill" method="POST">
+    <input type="text" name="reg_no" placeholder="Registration No"><br>
+    <input type="text" name="skill_name" placeholder="Skill Name"><br>
+
+    <button type="submit">Delete Skill</button>
+</form>
