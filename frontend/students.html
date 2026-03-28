@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Students - PDMS</title>
+    <link rel="stylesheet" href="css/autocomplete.css">
+    <link rel="stylesheet" href="css/students.css">
+</head>
+
+<body>
+
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+        <div class="logo-circle">P</div>
+        <h2 class="logo-text">PDMS</h2>
+    </div>
+
+    <p class="nav-title">Navigation</p>
+
+    <ul>
+        <li onclick="navigate('dashboard')">🏠 Dashboard</li>
+        <li class="active">🎓 Students</li>
+        <li onclick="navigate('companies')">🏢 Companies</li>
+        <li onclick="navigate('drives')">📅 Drives</li>
+        <li onclick="navigate('applications')">📄 Applications</li>
+        <li onclick="navigate('results')">🎯 Results</li>
+    </ul>
+</aside>
+
+<div class="main" id="main">
+
+    <div class="topbar">
+        <div class="left">
+            <span class="menu-btn" onclick="toggleSidebar()">☰</span>
+            <span class="title">PDMS</span>
+        </div>
+        <a href="index.html" class="home-btn">← Home</a>
+    </div>
+
+    <div class="content">
+        <h1>Students</h1>
+        <p class="subtitle">Admin-only: add students, search, filter by CGPA, and manage skills in one table</p>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="icon-box">👥</div>
+                <div>
+                    <h3>Total Students</h3>
+                    <p id="totalStudents">0</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="icon-box icon-green">✔</div>
+                <div>
+                    <h3>Matching filter</h3>
+                    <p id="eligibleStudents">0</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="filters">
+            <input type="text" id="search" class="search-box"
+                placeholder="Search by name or registration number">
+            <div class="cgpa-filter-wrap">
+                <label for="cgpaMin" class="sr-only">Min CGPA</label>
+                <input type="number" id="cgpaMin" class="search-box" min="0" max="10" step="0.01"
+                    placeholder="CGPA ≥ (e.g. 7)" title="Show students with CGPA greater than or equal to this value">
+            </div>
+        </div>
+
+        <div class="add-student-box">
+    <h2>Add Student</h2>
+
+    <div class="form-grid">
+        <input type="text" placeholder="Register Number">
+        <input type="text" placeholder="Name">
+        <input type="email" placeholder="Email">
+        <input type="text" placeholder="Branch">
+        <input type="number" placeholder="CGPA">
+        <input type="number" placeholder="Year">
+        <input type="text" placeholder="Skills">
+    </div>
+
+    <button class="add-btn">Add Student</button>
+</div>
+        <div class="add-student-box skills-toolbar">
+            <h2>Add skill to a student</h2>
+            <p class="hint">Students listed below match your search and CGPA filter. Type to search by name or registration number.</p>
+            <div class="form-grid skills-grid">
+                <div class="combo-wrap">
+                    <label class="combo-label" for="skillStudentInput">Student</label>
+                    <div class="combo" id="skillStudentCombo">
+                        <input type="text" class="combo-input" id="skillStudentInput" autocomplete="off" placeholder="Search student (e.g. ank, 24091…)" />
+                        <input type="hidden" class="combo-value" value="" />
+                        <ul class="combo-list hidden" role="listbox"></ul>
+                    </div>
+                </div>
+                <input type="text" id="skillName" placeholder="Skill name" maxlength="80">
+                <button type="button" onclick="addSkill()" class="add-btn">+ Add Skill</button>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table class="students-table">
+                <thead>
+                    <tr>
+                        <th>Reg No</th>
+                        <th>Name</th>
+                        <th>Branch</th>
+                        <th>CGPA</th>
+                        <th>Email</th>
+                        <th>Skills</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer class="footer">
+        Placement Drive Management System — DBMS Project
+    </footer>
+
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/script.js"></script>
+<script src="js/autocomplete.js"></script>
+<script src="js/students.js"></script>
+
+</body>
+</html>

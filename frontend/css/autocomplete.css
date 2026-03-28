@@ -1,0 +1,126 @@
+/* Shared combobox: search input + suggestion list */
+.combo {
+    position: relative;
+    width: 100%;
+    max-width: 560px;
+}
+
+.combo.combo-block {
+    max-width: none;
+}
+
+.combo-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    font-size: 14px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.combo-input:hover {
+    border-color: #2563eb;
+}
+
+.combo-input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.combo-open .combo-input {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.combo-list {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    margin: 0;
+    padding: 4px 0;
+    list-style: none;
+    max-height: 240px;
+    overflow-y: auto;
+    z-index: 2000;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+}
+
+.combo-list.hidden {
+    display: none;
+}
+
+.combo-item {
+    padding: 10px 14px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #1f2937;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.combo-item:last-child {
+    border-bottom: none;
+}
+
+.combo-item:hover,
+.combo-item-active {
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+/* Compact (table cells, status) */
+.combo.combo-sm {
+    max-width: 220px;
+}
+
+.combo.combo-sm .combo-input {
+    padding: 8px 10px;
+    font-size: 13px;
+    border-radius: 8px;
+}
+
+.combo.combo-sm .combo-list {
+    max-height: 180px;
+    border-radius: 0 0 8px 8px;
+}
+
+.combo.combo-inline {
+    max-width: 100%;
+}
+
+/* Toggle / radio replacement for binary fields */
+.segmented {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+.segmented label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    background: #f9fafb;
+    cursor: pointer;
+    font-size: 14px;
+    user-select: none;
+}
+
+.segmented label:hover {
+    border-color: #93c5fd;
+    background: #eff6ff;
+}
+
+.segmented input {
+    accent-color: #2563eb;
+}
